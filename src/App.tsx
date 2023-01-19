@@ -1,25 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
+import { Container, Paper, Typography } from '@mui/material';
+import { useRecoilState } from 'recoil';
 import './App.css';
+import Error from './Error';
+import Listing from './Listing';
+import PWInput from './PWInput';
+import * as state from './state';
 
 function App() {
+  const [mode, _setMode] = useRecoilState(state.mode);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container maxWidth="lg">
+      <Paper elevation={5} style={{ margin: "20px", padding: "50px" }}>
+        <Typography variant="h1">PWNY Express</Typography>
+        <Typography variant="h3">Your favorite simple password manager!</Typography>
+        <br /><br />
+        {mode == 'initial' ? <PWInput /> : <Listing />}
+        <Error />
+      </Paper>
+    </Container>
   );
 }
 
